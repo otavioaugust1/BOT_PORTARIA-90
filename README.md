@@ -21,6 +21,20 @@ Para utilizar o BOT, é necessário ter as seguintes bibliotecas instaladas:
 * NumPy
 * OpenPyXL
 
+## Dados Externo 
+
+1. Realizar donwload no site CNES:
+* http://cnes.saude.gov.br/pages/downloads/arquivosBaseDados.jsp 
+* selecione o arquivo mais recente e coloque na pasta 'BASE'
+
+2. Realizar donwload no site SIGTAP
+* http://sigtap.datasus.gov.br/tabela-unificada/app/download.jsp 
+* selecione o arquivo mais recente e coloque na pasta 'BASE'
+
+3. Realizar donwload no site SISMAC
+* https://sismac.saude.gov.br/teto_financeiro_brasil 
+* selecione o arquivo mais recente e coloque na pasta 'BASE'
+
 ## Como utilizar
 Para utilizar o BOT, basta seguir os seguintes passos:
 
@@ -39,7 +53,7 @@ pip install pandas numpy openpyxl
 python bot.py
 ```
 
-4. Selecionar a planilha a ser avaliada.
+4. Selecionar a planilha a ser avaliada."PLANILHA"
 5. Analisar os resultados da avaliação e o relatório gerado pelo BOT.
 6. Enviar notificações sobre a avaliação conforme necessário.
 
