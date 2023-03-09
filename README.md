@@ -20,6 +20,9 @@ Para utilizar o BOT, é necessário ter as seguintes bibliotecas instaladas:
 * Pandas
 * NumPy
 * OpenPyXL
+* XlsxWriter
+* glob
+* Time
 
 ## Dados Externo 
 
