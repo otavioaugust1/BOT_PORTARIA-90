@@ -38,6 +38,10 @@ Para utilizar o BOT, é necessário ter as seguintes bibliotecas instaladas:
 * https://sismac.saude.gov.br/teto_financeiro_brasil 
 * selecione o arquivo mais recente e coloque na pasta 'BASE'
 
+4. Realizar o donwload no site 
+* https://saips.saude.gov.br/ 
+* selecione a sua proposta para analise na pasta 'PLANILHA'
+
 ## Como utilizar
 Para utilizar o BOT, basta seguir os seguintes passos:
 
@@ -48,17 +52,22 @@ git clone https://github.com/seu-usuario/nome-do-repositorio.git
 
 2. Instalar as bibliotecas necessárias:
 ```
-pip install pandas numpy openpyxl
+pip install pandas numpy openpyxl glob time XlsxWriter
 ```
 
-3. Executar o BOT:
+3. Executar o BOT gerar BASE:
 ```
-python bot.py
+python tratar_base.py
 ```
 
-4. Selecionar a planilha a ser avaliada."PLANILHA"
-5. Analisar os resultados da avaliação e o relatório gerado pelo BOT.
-6. Enviar notificações sobre a avaliação conforme necessário.
+4. Executar o BOT verificador:
+```
+python verificar_planilha.py
+```
+
+5. Selecionar a planilha a ser avaliada."PLANILHA"
+6. Analisar os resultados da avaliação e o relatório gerado pelo BOT.
+7. Enviar notificações sobre a avaliação conforme necessário.
 
 
 ## Observações
