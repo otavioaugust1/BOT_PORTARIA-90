@@ -38,7 +38,7 @@ from dateutil.relativedelta import relativedelta
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-print(f"[OK] Início do processo:========================================>: {time.strftime('%H:%M:%S')}")
+print(f"[OK] Início do processo:=====================================================>: {time.strftime('%H:%M:%S')}")
 
 # formatação de datas para o nome dos arquivos
 data_atual = date.today() # Data atual
@@ -66,7 +66,7 @@ for pasta in [pasta_entrada]:
                 shutil.rmtree(arquivo_pasta) # deleta o diretório
         except Exception as e:
             print(f'Falha ao deletar {arquivo_pasta}. Motivo: {e}')
-print(f"[OK] Criando as pastas =========================================>: {time.strftime('%H:%M:%S')}")
+print(f"[OK] Criando as pastas ======================================================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos CNES
@@ -84,7 +84,7 @@ except urllib.error.URLError:
         data = response.read()  # Lê os dados do arquivo
         out_file.write(data)  # Escreve os dados em um arquivo local
 
-print(f"[OK] Download dos arquivos CNES ================================>: {time.strftime('%H:%M:%S')}")
+print(f"[OK] Download dos arquivos CNES =============================================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos SIGTAP
@@ -103,9 +103,9 @@ if arquivo:
         data = response.read()  # Lê os dados do arquivo
         out_file.write(data)  # Escreve os dados em um arquivo local
 
-    print(f"[OK] Download dos arquivos SIGTAP ==============================>: {time.strftime('%H:%M:%S')}")
+    print(f"[OK] Download dos arquivos SIGTAP =======================================>: {time.strftime('%H:%M:%S')}")
 else:
-    print(f"[ERRO] Nenhum arquivo SIGTAP encontrado! =======================>: {time.strftime('%H:%M:%S')}")
+    print(f"[ERRO] Nenhum arquivo SIGTAP encontrado! ================================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos SAIPS
@@ -116,7 +116,7 @@ with urllib.request.urlopen(url) as response, open(filename, 'wb') as out_file:
     data = response.read()  # Lê os dados do arquivo
     out_file.write(data)  # Escreve os dados em um arquivo local
 
-print(f"[OK] Download do arquivo BASE_DE_DADOS_SAIPS.xlsx ==============>: {time.strftime('%H:%M:%S')}")
+print(f"[OK] Download do arquivo BASE_DE_DADOS_SAIPS.xlsx ===========================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos TETO FINANCEIRO BRASIL
@@ -139,7 +139,7 @@ element.click()
 
 driver.quit()
 
-print(f"[OK] Download do arquivo BASE_DE_DADOS_TETO_MAC.xlsx ===========>: {time.strftime('%H:%M:%S')}")
+print(f"[OK] Download do arquivo BASE_DE_DADOS_TETO_MAC.xlsx ========================>: {time.strftime('%H:%M:%S')}")
 
 
 #=============TRATAMENTO DOS DADOS==================
@@ -172,9 +172,9 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes_servicos) as myfile:
             df_cnes_servicos = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=conlunas_s)
             df_cnes_servicos.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação CNES - Serviço x Classificação:===> {time.strftime('%H:%M:%S')}")
+            print(f"[OK] Importação CNES - Serviço x Classificação:===================> {time.strftime('%H:%M:%S')}")
     else:
-        print(f"[ERRO] Importação CNES - Serviço x Classificação - Arquivo CSV não encontrado. {time.strftime('%H:%M:%S')}")
+        print(f"[ERRO] Importação CNES - Serviço x Classificação[Arquivo não encontrado]{time.strftime('%H:%M:%S')}")
 
 
 ## Habilitação 2023
