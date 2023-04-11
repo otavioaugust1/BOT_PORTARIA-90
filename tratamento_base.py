@@ -13,30 +13,33 @@
 
 
 # Importação das bibliotecas
-import pandas as pd # Biblioteca para manipulação de dados
-import numpy as np # Biblioteca para manipulação de dados
-import time # Biblioteca para medir o tempo de execução
-import zipfile # Biblioteca para manipulação de arquivos ZIP
-import shutil # Biblioteca para manipulação de arquivos
-import urllib.request # Biblioteca para manipulação de arquivos
-import os # Biblioteca para manipulação de arquivos
-import re  # Biblioteca para expressões regulares
+import pandas as pd # importando a biblioteca pandas
+import numpy as np # importando a biblioteca numpy
+import time # importando a biblioteca time
+import zipfile # importando a biblioteca zipfile
+import shutil # Biblioteca para manipular arquivos e pastas
+import urllib.request # Biblioteca para fazer download de arquivos
+import openpyxl # Biblioteca para manipular arquivos excel
+import re # importando a biblioteca re
+import os # importando a biblioteca os
 import ftplib # Biblioteca para fazer download de arquivos
-import openpyxl # Biblioteca para ler arquivos do excel
-import warnings # Biblioteca para ignorar avisos
 
-warnings.filterwarnings("ignore")
-tempo_inicial = time.time()
+#Warnings: Possui detalhes sobre os avisos e alertas que aparecem, porém podemos utiliza-lo também para que os alertas de
+import warnings # não apareçam na tela
+warnings.filterwarnings("ignore")  # Não exibe os avisos
+tempo_inicial = time.time() # tempo inicial para calcular o tempo de execução do código
 
 from datetime import date,  timedelta # Biblioteca para manipular datas
 from glob import glob # Utilizado para listar arquivos de um diretório
 from selenium import webdriver # Biblioteca para automatizar o navegador
-from selenium.webdriver.common.by import By
-from datetime import date
-from dateutil.relativedelta import relativedelta
+from selenium.webdriver.common.by import By # Biblioteca para automatizar o navegador
+from datetime import date # Biblioteca para manipular datas
+from dateutil.relativedelta import relativedelta # Biblioteca para manipular datas
 
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None) # Comando para exibir todas colunas do arquivo
+pd.set_option('display.max_rows', None) # Comando para exibir todas linhas do arquivo
+
+start_time = time.time() # tempo inicial para calcular o tempo de execução do código
 
 print(f"[OK] Início do processo:=====================================================>: {time.strftime('%H:%M:%S')}")
 
@@ -47,11 +50,12 @@ data_passada = (date.today() - relativedelta(months=1)).strftime('%Y%m') # Data 
 data_passada_a = (date.today() - relativedelta(months=2)).strftime('%Y%m') # Data atual menos 2 mês no formato YYYYMM
 
 
-#Criar pasta de saída e  arquivo txt resultado em modo de escrita
-# Definição de pastas
-pasta_entrada = 'BASE-t/' # Pasta onde estão os arquivos de entrada
+#Criar pasta de entrada, saida e  arquivo txt resultado em modo de escrita
+pasta_entrada = 'BASE/' # Pasta onde estão os arquivos de entrada
+pasta_saida = 'RESULTADOS/' # Pasta onde serão gravados os arquivos de saída
+pasta_planilha = 'PLANILHA/' # Pasta onde serão gravados os arquivos para ser analisados (planilha)
 
-for pasta in [pasta_entrada]:
+for pasta in [pasta_entrada, pasta_saida, pasta_planilha]:
     try:
         os.mkdir(pasta)
     except OSError:
@@ -103,9 +107,9 @@ if arquivo:
         data = response.read()  # Lê os dados do arquivo
         out_file.write(data)  # Escreve os dados em um arquivo local
 
-    print(f"[OK] Download dos arquivos SIGTAP =======================================>: {time.strftime('%H:%M:%S')}")
+    print(f"[OK] Download dos arquivos SIGTAP ===========================================>: {time.strftime('%H:%M:%S')}")
 else:
-    print(f"[ERRO] Nenhum arquivo SIGTAP encontrado! ================================>: {time.strftime('%H:%M:%S')}")
+    print(f"[ERRO] Nenhum arquivo SIGTAP encontrado! ====================================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos SAIPS
@@ -124,20 +128,20 @@ url_t = 'https://sismac.saude.gov.br/teto_financeiro_brasil#'
 filename = pasta_entrada + f'BASE_DE_DADOS_TETO_FINANCEIRO_BRASIL.xlsx'
 
 
-options = webdriver.EdgeOptions()
-options.use_chromium = True
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
+#options = webdriver.EdgeOptions()
+#options.use_chromium = True
+#options.add_argument('--headless')
+#options.add_argument('--disable-gpu')
+#options.add_argument('--no-sandbox')
+#options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Edge(executable_path=r'NAVEGADOR\msedgedriver.exe', options=options)
-driver.get(url_t)
+#driver = webdriver.Edge(executable_path=r'NAVEGADOR\msedgedriver.exe', options=options)
+#driver.get(url_t)
 
-element = driver.find_element(By.XPATH, '//*[@id="conteudoPanel"]/div[3]/div/div/div[2]/p/a')
-element.click()
+#element = driver.find_element(By.XPATH, '//*[@id="conteudoPanel"]/div[3]/div/div/div[2]/p/a')
+#element.click()
 
-driver.quit()
+#driver.quit()
 
 print(f"[OK] Download do arquivo BASE_DE_DADOS_TETO_MAC.xlsx ========================>: {time.strftime('%H:%M:%S')}")
 
@@ -156,9 +160,9 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes) as myfile:
             df_cnes = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=colunas_c)
             df_cnes.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação do CNES:========================================>: {time.strftime('%H:%M:%S')}")     
+            print(f"[OK] Importação do CNES:=====================================================>: {time.strftime('%H:%M:%S')}")     
     else:
-        print(f"[ERRO] Importação do CNES - Arquivo CSV não encontrado =========>: {time.strftime('%H:%M:%S')}")
+            print(f"[ERRO] Importação do CNES - Arquivo CSV não encontrado ======================>: {time.strftime('%H:%M:%S')}")
  
 
 ## Serviço x Classificação 2023
@@ -172,9 +176,9 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes_servicos) as myfile:
             df_cnes_servicos = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=conlunas_s)
             df_cnes_servicos.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação CNES - Serviço x Classificação:===================> {time.strftime('%H:%M:%S')}")
+            print(f"[OK] Importação CNES - Serviço x Classificação ==============================>: {time.strftime('%H:%M:%S')}")
     else:
-        print(f"[ERRO] Importação CNES - Serviço x Classificação[Arquivo não encontrado]{time.strftime('%H:%M:%S')}")
+            print(f"[ERRO] Importação CNES - Serviço x Classificação [Arquivo não encontrado] ===>: {time.strftime('%H:%M:%S')}")
 
 
 ## Habilitação 2023
@@ -188,9 +192,9 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes_habilitacao) as myfile:
             df_cnes_habilitacao = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=conlunas_h)
             df_cnes_habilitacao.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação CNES - Habilitação:===============> {time.strftime('%H:%M:%S')}")
+            print(f"[OK] Importação CNES - Habilitação ==========================================>: {time.strftime('%H:%M:%S')}")
     else:
-        print(f'[ERRO] Importação CNES - Habilitação - Arquivo CSV não encontrado.')
+            print(f'[ERRO] Importação CNES - Habilitação - [Arquivo CSV não encontrado] =========>: {time.strftime("%H:%M:%S")}')
 
 
 ### Habilitação e descrição 2023
@@ -204,9 +208,9 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes_habilitacao_desc) as myfile:
             df_cnes_habilitacao_desc = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=colunas_h_d)
             df_cnes_habilitacao_desc.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação CNES - Habilitação e Descrição:===> {time.strftime('%H:%M:%S')}")
+            print(f"[OK] Importação CNES - Habilitação e Descrição ==============================>: {time.strftime('%H:%M:%S')}")
     else:
-        print(f'[ERRO] Importação CNES - Habilitação e Descrição - Arquivo CSV não encontrado.')
+            print(f'[ERRO] Importação CNES - Habilitação e Descrição - [Arquivo não encontrado] =>: {time.strftime("%H:%M:%S")}')
 
 df_cnes_habilitacao = pd.merge(df_cnes_habilitacao, df_cnes_habilitacao_desc, left_on='COD_SUB_GRUPO_HABILITACAO', right_on='CO_CODIGO_GRUPO', how='left')
 df_cnes_habilitacao.drop(['COD_SUB_GRUPO_HABILITACAO'], axis=1, inplace=True)
@@ -223,35 +227,33 @@ with zipfile.ZipFile(dado_cnes, 'r') as myzip:
         with myzip.open(df_cnes_leitos) as myfile:
             df_cnes_leitos = pd.read_csv(myfile, sep=';', encoding='latin-1', low_memory=False, usecols=colunas_l)
             df_cnes_leitos.columns.values # Exibindo os valores do arquivo 
-            print(f"[OK] Importação CNES - Leitos, leitos SUS:========> {time.strftime('%H:%M:%S')}")
+            print(f"[OK] Importação CNES - Leitos, leitos SUS ===================================>: {time.strftime('%H:%M:%S')}")
     else:
-        print(f'[ERRO] Importação CNES - Leitos, leitos SUS - Arquivo CSV não encontrado.')
+            print(f'[ERRO] Importação CNES - Leitos, leitos SUS - [Arquivo não encontrado] ======>: {time.strftime("%H:%M:%S")}')
 
 
 ## Merge dos dados do CNES
 df_base_cnes_s = pd.merge(df_cnes, df_cnes_servicos, on='CO_UNIDADE', how='left')
 df_base_cnes_h = pd.merge(df_cnes, df_cnes_habilitacao, on='CO_UNIDADE', how='left')
 df_base_cnes_l = pd.merge(df_cnes, df_cnes_leitos, on='CO_UNIDADE', how='left') 
-print(f"[OK] Merge dos dados do CNES:=====================> {time.strftime('%H:%M:%S')}")
+print(f"[OK] Merge dos dados do CNES ================================================>: {time.strftime('%H:%M:%S')}")
 
 
 ## Exportando os dados
-dataframes = [df_base_cnes_s, df_base_cnes_h, df_base_cnes_l]
+df_base_cnes_s.to_csv('BASE\.BASE_CNES_SERVICOS.csv', sep=';', encoding='latin-1', index=False) # Exportando o arquivo para csv
+df_base_cnes_h.to_csv('BASE\.BASE_CNES_HABILITACAO.csv', sep=';', encoding='latin-1', index=False) # Exportando o arquivo para csv
+df_base_cnes_l.to_csv('BASE\.BASE_CNES_LEITOS.csv', sep=';', encoding='latin-1', index=False) # Exportando o arquivo para csv
 
-for i, df in enumerate(dataframes):
-    nome_arquivo = f'{pasta_entrada}/.BASE_CNES_{i}.csv'
-    df.to_csv(nome_arquivo, sep=';', encoding='latin-1', index=False)
-
-print(f"[OK] Exportando os dados do CNES:=================> {time.strftime('%H:%M:%S')}")
+print(f"[OK] Exportando os dados do CNES ============================================>: {time.strftime('%H:%M:%S')}")
 ## Fim do código
 
 
 # Teto Mac 2023
 
-dado_tetp = glob('BASE/*relatorioTetoFinanceiroBrasilExcel.xlsx')[0] 
+dado_tetp = glob('BASE-T/*relatorioTetoFinanceiroBrasilExcel.xlsx')[0] 
 df_teto_mac = pd.read_excel(dado_tetp, sheet_name='relatorioTetoFinanceiroBrasilEx')
 df_teto_mac.drop(df_teto_mac.loc[df_teto_mac['Descrição Gestão']=='Total UF'].index, inplace=True)
-print(f"[OK] Importação Teto Mac:=========================> {time.strftime('%H:%M:%S')}")
+print(f"[OK] Importação Teto MAC  ===================================================>: {time.strftime('%H:%M:%S')}")
 
 ## Exportando os dados
 df_teto_mac.to_csv(f'{pasta_entrada}\.BASE_TETO_MAC.csv', sep=';', encoding='latin-1', index=False)
@@ -260,14 +262,14 @@ df_teto_mac.to_csv(f'{pasta_entrada}\.BASE_TETO_MAC.csv', sep=';', encoding='lat
 
 # SIGTAP 2023
 
-dado_sigtap = glob('BASE/TabelaUnificada_2023*.zip')[0] 
+dado_sigtap = glob('BASE/BASE_DE_DADOS_SIGTAP_2023*.zip')[0] 
 
 with zipfile.ZipFile(dado_sigtap) as myzip: 
     with myzip.open('tb_procedimento.txt') as myfile:  
         df_sigtap = pd.read_fwf(myfile, colspecs=[(0,10), (10,260), (260,330)], 
                                names=["CO_PROCEDIMENTO", "NO_PROCEDIMENTO", "DT_COMPETENCIA"], encoding='latin')
 df_sigtap.drop(['DT_COMPETENCIA'], axis=1, inplace=True)
-print(f"[OK] Importação SIGTAP:===========================> {time.time() - tempo_inicial:.2f} segundos")
+print(f"[OK] Importação SIGTAP ======================================================>: {time.strftime('%H:%M:%S')}")
 
 
 ## SIGTAP - serviços / classificação 2023
@@ -277,7 +279,7 @@ with zipfile.ZipFile(dado_sigtap) as myzip: # Abrindo o arquivo zip
       df_sigtap_servico = pd.read_fwf(myfile, colspecs=[(0,10), (10,13), (13,16), (16,22)], 
                               names=["CO_PROCEDIMENTO","CO_SERVICO","CO_CLASSIFICACAO","DT_COMPETENCIA"], encoding='latin') # Lendo o arquivo txt
 df_sigtap_servico.drop(['DT_COMPETENCIA'], axis=1, inplace=True) # Removendo colunas desnecessárias
-print(f"[OK] Importação SIGTAP - Serviços:================> {time.time() - tempo_inicial:.2f} segundos")
+print(f"[OK] Importação SIGTAP - Serviços ===========================================>: {time.strftime('%H:%M:%S')}")
 
 
 ## SIGTAP -Habilitação 2023
@@ -286,7 +288,7 @@ with zipfile.ZipFile(dado_sigtap) as myzip: # Abrindo o arquivo zip
    with myzip.open('rl_procedimento_habilitacao.txt') as myfile:  
       df_sigtap_habilitacao = pd.read_fwf(myfile, colspecs=[(0,10), (10,14), (14,18), (18,24)], names=["CO_PROCEDIMENTO", "CO_HABILITACAO", "NU_GRUPO_HABILITACAO", "DT_COMPETENCIA"]) # Lendo o arquivo txt
 df_sigtap_habilitacao.drop(['NU_GRUPO_HABILITACAO','DT_COMPETENCIA'], axis=1, inplace=True) # Removendo colunas desnecessárias
-print(f"[OK] Importação SIGTAP - Habilitação:=============> {time.time() - tempo_inicial:.2f} segundos")
+print(f"[OK] Importação SIGTAP - Habilitação ========================================>: {time.strftime('%H:%M:%S')}")
 
 
 ## SIGTAP - Forma de registro 2023
@@ -301,26 +303,31 @@ with zipfile.ZipFile(dado_sigtap) as myzip: # Abrindo o arquivo zip
       df_sigtap_registro = pd.read_fwf(myfile, colspecs=[(0,2), (2,52), (52,58)], names=["CO_REGISTRO", "NO_REGISTRO", "DT_COMPETENCIA"], encoding='latin') # Lendo o arquivo txt
 df_sigtap_registro.drop(['DT_COMPETENCIA'], axis=1, inplace=True) # Removendo colunas desnecessárias
 df_sigtap_modalidade = pd.merge(df_sigtap_modalidade, df_sigtap_registro, on='CO_REGISTRO', how='left') # Juntando os arquivos
-print(f"[OK] Importação SIGTAP - Forma de Registro:=======> {time.time() - tempo_inicial:.2f} segundos")
+print(f"[OK] Importação SIGTAP - Forma de Registro ==================================>: {time.strftime('%H:%M:%S')}")
 
 
+## SIGTAP - PLANILHA
+df_planilha_proc = glob('BASE\BASE_DE_DADOS_SAIPS*.xlsx')[0] # Listando os arquivos do diretório
+df_planilha_proc = pd.read_excel(df_planilha_proc, sheet_name='PROCEDIMENTOS') # Lendo o arquivo excel
+df_planilha_proc.rename(columns={'Código do Procedimento':'CO_PROCEDIMENTO','Unnamed: 1':'SUBGRUPO','Unnamed: 2':'COD_PROCEDIMENTO', 'Unnamed: 3':'DEC_PROCEDIMENTO', 'Unnamed: 4':'codigo', 
+                                 'Dados de Produção Brasil (2018 a 2022)':'QT_PROD_SIASUS', 'Unnamed: 6':'% ELET SIASUS', 'Unnamed: 7':'QT_PROD AIH 2018 a 2022',
+                                 'Unnamed: 8':'% ELET AIH', 'Exigência SIGTAP':'EXIGE SERVIÇO', 'Unnamed: 10':'EXIGE HABILITACAO', 'Instrumento de REGISTRO':'BPA_I',
+                                 'Unnamed: 12':'AIH', 'Unnamed: 13':'APAC'}, inplace=True) # Renomeando colunas
+df_planilha_proc.drop(0, inplace=True) # Remove a primeira linha do arquivo
+df_planilha_proc.drop(['codigo'], axis=1, inplace=True) # Remove a coluna codigo
 
 
+## Juntando os arquivos - SIGTAP
+df_sigtap_f = pd.merge(df_planilha_proc, df_sigtap_modalidade, left_on='COD_PROCEDIMENTO', right_on='CO_PROCEDIMENTO', how='left') # Juntando os arquivos 3
+df_sigtap_f = pd.merge(df_sigtap_f, df_sigtap_servico, on='CO_PROCEDIMENTO', how='left') # Juntando os arquivos
+df_sigtap_f = pd.merge(df_sigtap_f, df_sigtap_habilitacao, on='CO_PROCEDIMENTO', how='left') # Juntando os arquivos
+df_sigtap_f.drop(['CO_PROCEDIMENTO'], axis=1, inplace=True) # Removendo colunas desnecessárias
+print(f"[OK] Juntando os arquivos - SIGTAP:==========================================>: {time.strftime('%H:%M:%S')}")
 
+## Exportando o arquivo
+df_sigtap_f.to_csv('BASE\.BASE_SIGTAP_GERAL.csv', sep=';', encoding='latin-1', index=False) # Exportando o arquivo para csv
+print(f"[OK] Exportando o arquivo - SIGTAP ==========================================>: {time.strftime('%H:%M:%S')}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Fechar arquivo txt
-arquivo.close()
-print(f"[OK] Fim do código:===============================> {time.time() - tempo_inicial:.2f} segundos")
+## Fechando os arquivos
+myfile.close()
+print(f"[OK] Fim do código  =========================================================>: {time.strftime('%H:%M:%S')}")
