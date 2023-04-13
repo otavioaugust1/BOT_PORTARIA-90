@@ -8,11 +8,15 @@ Este BOT foi desenvolvido em Python para avaliar planilhas enviadas de acordo co
 
 O BOT possui as seguintes funcionalidades:
 
-* Leitura de planilhas em formato Excel
-* Verificação de dados obrigatórios conforme Portaria 90
-* Cálculo de indicadores de desempenho
-* Geração de relatórios de avaliação
-* Envio de notificações sobre a avaliação
+* Leitura de planilhas em formato Excel;
+* Verificação de dados obrigatórios conforme Portaria 90;
+* Verificação com os dados estão conforme o formato exigido;
+* Verificação de dados duplicados;
+* Verificação de dados com valores negativos;
+* Verificação de dados com valores acima do limite máximo;
+* Verificacão com o CNES e o SIGTAP;
+* Geração de relatório com os resultados da avaliação;
+* Geração da planilha com os dados para serem corrigidos;
 
 ## Requisitos
 Para utilizar o BOT, é necessário ter as seguintes bibliotecas instaladas:
