@@ -1,8 +1,8 @@
 # TRATAMENTO DOS DADOS DO CNES, SIGTAP E TETO
 ## Autor: Otávio Augusto dos Santos
-## Data: 2023-03-17
+## Data: 2023-04-13
 
-## Versão: 2.3.5
+## Versão: 2.7.10
 ## Descrição: Tratamento dos dados do CNES, SIGTAP e TETO
 ## Entrada: Dados do CNES, SIGTAP e TETO
 ## Saída: Dados tratados do CNES, SIGTAP e TETO

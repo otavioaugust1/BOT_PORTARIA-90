@@ -2,7 +2,7 @@
 
 # BOT para Avaliação de Planilhas - Portaria 90
 
-Este BOT foi desenvolvido em Python para avaliar planilhas enviadas de acordo com a Portaria 90. Ele é capaz de analisar os dados enviados e verificar se estão em conformidade com as exigências da portaria.
+Este BOT foi desenvolvido em Python para avaliar planilhas enviadas de acordo com a PORTARIA GM/MS Nº 90, DE 03 DE FEVEREIRO DE 2023 – INSTITUI O PROGRAMA NACIONAL DE REDUÇÃO DAS FILAS DE CIRURGIAS ELETIVAS. Ele é capaz de analisar os dados enviados e verificar se estão em conformidade com as exigências da portaria.
 
 ## Funcionalidades
 
@@ -20,53 +20,47 @@ Para utilizar o BOT, é necessário ter as seguintes bibliotecas instaladas:
 * Pandas
 * NumPy
 * OpenPyXL
+* zipfile
+* os
+* re
+* ftplib
+* urllib 
 * XlsxWriter
 * glob
 * Time
-
-## Dados Externo 
-
-1. Realizar donwload no site CNES:
-* http://cnes.saude.gov.br/pages/downloads/arquivosBaseDados.jsp 
-* selecione o arquivo mais recente e coloque na pasta 'BASE'
-
-2. Realizar donwload no site SIGTAP
-* http://sigtap.datasus.gov.br/tabela-unificada/app/download.jsp 
-* selecione o arquivo mais recente e coloque na pasta 'BASE'
-
-3. Realizar donwload no site SISMAC
-* https://sismac.saude.gov.br/teto_financeiro_brasil 
-* selecione o arquivo mais recente e coloque na pasta 'BASE'
-
-4. Realizar o donwload no site 
-* https://saips.saude.gov.br/ 
-* selecione a sua proposta para analise na pasta 'PLANILHA'
+* warnings
+* pyexcel
+* locale
+* math
 
 ## Como utilizar
 Para utilizar o BOT, basta seguir os seguintes passos:
 
 1. Clonar o repositório em sua máquina:
 ```
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/otavioaugust1/BOT_PORTARIA-90
 ```
 
 2. Instalar as bibliotecas necessárias:
 ```
-pip install pandas numpy openpyxl glob time XlsxWriter
+pip install pandas numpy openpyxl glob time XlsxWriter zipfile os re ftplib urllib pyexcel locale math
 ```
 
 3. Executar o BOT gerar BASE:
 ```
-python tratar_base.py
+python tratamento_base.py
+ou jupyter notebook tratamento_base.ipynb
 ```
 
-4. Executar o BOT verificador:
+4. Coloque a planilha a ser avaliada na pasta "PLANILHA" e
+
+5. Executar o BOT verificador:
 ```
-python verificar_planilha.py
+juptyer notebook validador.ipynb
 ```
 
-5. Selecionar a planilha a ser avaliada."PLANILHA"
-6. Analisar os resultados da avaliação e o relatório gerado pelo BOT.
+6. Analisar os resultados da avaliação e o relatório gerado pelo BOT na pasta "RESULTADOS".
+
 7. Enviar notificações sobre a avaliação conforme necessário.
 
 
