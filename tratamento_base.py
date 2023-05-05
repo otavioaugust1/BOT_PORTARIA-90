@@ -98,6 +98,7 @@ ftp.cwd('/pub/sistemas/tup/downloads/') # Navega até o diretório desejado
 
 arquivos = ftp.nlst() # Lista os arquivos disponíveis
 arquivo = [a for a in arquivos if a.startswith(f'TabelaUnificada_{data_corrente}') and a.endswith('.zip')]
+arquivo_a = [a for a in arquivos if a.startswith(f'TabelaUnificada_{data_passada}') and a.endswith('.zip')]
 
 if arquivo:
     url_s = f'ftp://ftp2.datasus.gov.br/pub/sistemas/tup/downloads/{arquivo[0]}'
@@ -109,7 +110,13 @@ if arquivo:
 
     print(f"[OK] Download dos arquivos SIGTAP ===========================================>: {time.strftime('%H:%M:%S')}")
 else:
-    print(f"[ERRO] Nenhum arquivo SIGTAP encontrado! ====================================>: {time.strftime('%H:%M:%S')}")
+    url_s = f'ftp://ftp2.datasus.gov.br/pub/sistemas/tup/downloads/{arquivo_a[0]}'
+    filename_s = pasta_entrada + f'BASE_DE_DADOS_SIGTAP_{data_passada}.ZIP'
+
+    with urllib.request.urlopen(url_s) as response, open(filename_s, 'wb') as out_file:
+        data = response.read()  # Lê os dados do arquivo
+        out_file.write(data)  # Escreve os dados em um arquivo local
+    print(f"[OK] Download dos arquivos SIGTAP - MES ANTERIOR ============================>: {time.strftime('%H:%M:%S')}")
 
 
 # Download dos arquivos SAIPS
