@@ -120,13 +120,14 @@ else:
 
 
 # Download dos arquivos SAIPS
+''' 
 url = 'https://www.gov.br/saude/pt-br/composicao/saes/saips/plano-atendimento-perf-cir-eletiva-vrs-4a.xlsx'
 filename = pasta_entrada + f'BASE_DE_DADOS_SAIPS_V4.xlsx'
 
 with urllib.request.urlopen(url) as response, open(filename, 'wb') as out_file:
     data = response.read()  # Lê os dados do arquivo
     out_file.write(data)  # Escreve os dados em um arquivo local
-
+'''
 print(f"[OK] Download do arquivo BASE_DE_DADOS_SAIPS.xlsx ===========================>: {time.strftime('%H:%M:%S')}")
 
 
@@ -314,7 +315,7 @@ print(f"[OK] Importação SIGTAP - Forma de Registro ===========================
 
 
 ## SIGTAP - PLANILHA
-df_planilha_proc = glob('BASE\BASE_DE_DADOS_SAIPS*.xlsx')[0] # Listando os arquivos do diretório
+df_planilha_proc = glob('BASE-T\BASE_DE_DADOS_SAIPS*.xlsx')[0] # Listando os arquivos do diretório
 df_planilha_proc = pd.read_excel(df_planilha_proc, sheet_name='PROCEDIMENTOS') # Lendo o arquivo excel
 df_planilha_proc.rename(columns={'Código do Procedimento':'CO_PROCEDIMENTO','Unnamed: 1':'SUBGRUPO','Unnamed: 2':'COD_PROCEDIMENTO', 'Unnamed: 3':'DEC_PROCEDIMENTO', 'Unnamed: 4':'codigo', 
                                  'Dados de Produção Brasil (2018 a 2022)':'QT_PROD_SIASUS', 'Unnamed: 6':'% ELET SIASUS', 'Unnamed: 7':'QT_PROD AIH 2018 a 2022',
