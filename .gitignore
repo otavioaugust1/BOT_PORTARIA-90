@@ -1,0 +1,99 @@
+# Arquivo .gitignore para projeto Python com FastAPI
+
+### Ambiente Virtual ###
+.venv/
+venv/
+env/
+ENV/
+
+### Dependências Python ###
+__pycache__/
+*.py[cod]
+*$py.class
+
+### Arquivos de ambiente ###
+.env
+.env.local
+.env.dev
+.env.prod
+.env.test
+
+### Arquivos de configuração local ###
+*.local
+*.local.*
+settings.ini
+
+### Arquivos do IDE ###
+# Visual Studio Code
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### Arquivos de sistema ###
+.DS_Store
+Thumbs.db
+
+### Arquivos de log ###
+*.log
+logs/
+
+### Arquivos temporários ###
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+### Arquivos gerados pelo Python ###
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+### Arquivos de banco de dados ###
+*.db
+*.sqlite
+*.sqlite3
+
+### Arquivos de upload ###
+uploads/
+*.xlsx
+*.csv
+*.pdf
+
+### Arquivos de cache ###
+.cache/
+.pytest_cache/
+
+### Arquivos de documentação ###
+docs/_build/
+docs/_static/
+docs/_templates/
+BASE/
+PANILHA/
+RESULTADOS/
+
+### Arquivos específicos do projeto ###
+# Remova os comentários abaixo se necessário
+# /app/config/local.py
+# /app/core/secrets.py
+
+### Arquivos Jupyter Notebook ###
+*.ipynb
+.ipynb_checkpoints/
+
+### Arquivos de teste ###
+/test-results/
+/test-reports/
+.coverage
+htmlcov/
+.pytest_cache/
