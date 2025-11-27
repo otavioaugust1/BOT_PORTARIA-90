@@ -49,13 +49,13 @@ print(
 
 # base de dados
 df_cnes_leitos = pd.read_csv(
-    'BASE\.BASE_CNES_LEITOS.csv', sep=';', encoding='latin-1', dtype=str
+    r'BASE\BASE_CNES_LEITOS.csv', sep=';', encoding='latin-1', dtype=str
 )
 df_cnes_habilitacao = pd.read_csv(
-    'BASE\.BASE_CNES_HABILITACAO.csv', sep=';', encoding='latin-1', dtype=str
+    r'BASE\BASE_CNES_HABILITACAO.csv', sep=';', encoding='latin-1', dtype=str
 )
 df_cnes_servicos = pd.read_csv(
-    'BASE\.BASE_CNES_SERVICOS.csv', sep=';', encoding='latin-1', dtype=str
+    r'BASE\BASE_CNES_SERVICOS.csv', sep=';', encoding='latin-1', dtype=str
 )
 print(
     f'[OK] Base de CNES carregada:======================> {time.time() - tempo_inicial:.2f} segundos',
@@ -63,7 +63,7 @@ print(
 )
 
 df_sigtap = pd.read_csv(
-    'BASE\.BASE_SIGTAP_GERAL.csv', sep=';', encoding='latin-1', dtype=str
+   r'BASE\BASE_SIGTAP_GERAL.csv', sep=';', encoding='latin-1', dtype=str
 )
 df_sigtap['COD_PROCEDIMENTO'] = df_sigtap['COD_PROCEDIMENTO'].astype(
     int
@@ -80,7 +80,7 @@ print(
 )
 
 df_teto = pd.read_csv(
-    'BASE\.BASE_TETO_MAC.csv', sep=';', encoding='latin-1', dtype=str
+    r'BASE\BASE_TETO_MAC.csv', sep=';', encoding='latin-1', dtype=str
 )
 print(
     f'[OK] Base de TETO MAC carregada:==================> {time.time() - tempo_inicial:.2f} segundos',
@@ -91,7 +91,7 @@ print(
 # Planilha para ser validada
 ## ABA 1
 
-df_planilha = glob('PLANILHA\*.xlsx')[0]   # Planilha para ser validada
+df_planilha = glob(r'PLANILHA\*.xls*')[0]   # Planilha para ser validada
 df_planilha_aba1 = pd.read_excel(
     df_planilha, sheet_name='Ident. Fila na UF'
 )   # Lê o arquivo excel
